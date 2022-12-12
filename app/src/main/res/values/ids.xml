@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="bubble_moreinfo" type="id" />
+    <item name="bubble_title" type="id" />
+    <item name="bubble_description" type="id" />
+    <item name="bubble_subdescription" type="id" />
+</resources>

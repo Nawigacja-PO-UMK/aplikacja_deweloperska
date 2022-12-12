@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+
+        <org.osmdroid.views.MapView
+            android:id="@+id/map"
+            android:layout_width="413dp"
+            android:layout_height="371dp"
+            app:layout_constraintBottom_toTopOf="@+id/skanuj"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.728"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.816">
+
+        </org.osmdroid.views.MapView>
+
+        <Switch
+            android:id="@+id/zapisać"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="   Zapisać"
+            app:layout_constraintBottom_toTopOf="@+id/map"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.777" />
+
+        <Button
+            android:id="@+id/skanuj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="256dp"
+            android:onClick="Operacje_na_pozycji"
+            android:text="Skanuj "
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/ekran"
+            android:layout_width="385dp"
+            android:layout_height="117dp"
+            android:text="skany..."
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/skanuj"
+            app:layout_constraintVertical_bias="0.177" />
+
+        <Button
+            android:id="@+id/wysyłaj"
+            android:layout_width="165dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="35dp"
+            android:onClick="wyslij_do_bazy"
+            android:text="wysyłaj skany"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.671"
+            app:layout_constraintStart_toEndOf="@+id/kasuj"
+            app:layout_constraintTop_toBottomOf="@+id/ekran"
+            app:layout_constraintVertical_bias="0.029" />
+
+        <Button
+            android:id="@+id/kasuj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:onClick="Kasuj_skany"
+            android:text="kasuj skany"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ekran" />
+
+        <Button
+            android:id="@+id/wypisz"
+            android:layout_width="172dp"
+            android:layout_height="46dp"
+            android:onClick="odczytwanie_plik"
+            android:text="Pokaż  Skany"
+            app:layout_constraintBottom_toTopOf="@+id/ekran"
+            app:layout_constraintEnd_toStartOf="@+id/skanuj"
+            app:layout_constraintHorizontal_bias="0.353"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/map"
+            app:layout_constraintVertical_bias="0.324" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
