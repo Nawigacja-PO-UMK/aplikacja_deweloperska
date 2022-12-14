@@ -23,11 +23,12 @@ public class Pozycjonowanie {
             WIFI.Akcje_Wifi(akcjaskanu);
         }
 
-        public void zapisz_skan_do_Bazy(float x,float y)
+        public void zapisz_skan_do_Bazy(float X,float Y,double Z)
         {
             wspułżedne xy=new wspułżedne();
-            xy.X=x;
-            xy.Y=y;
+            xy.X=X;
+            xy.Y=Y;
+            xy.Z=Z;
             zapisywanie_wifi_do_Bazy sesja= new zapisywanie_wifi_do_Bazy(baza,xy);
             WIFI.Akcje_Wifi(sesja);
         }
@@ -53,7 +54,7 @@ public class Pozycjonowanie {
             String wypisz = new String("");
             if(skany!= null) {
                 for (int i = skany.length-1; i >=0 ; i--) {
-                    wypisz += "pozycja :" + String.valueOf(skany[i].XY.Y) + " " + String.valueOf(skany[i].XY.X) + "\n";
+                    wypisz += "pozycja :" + String.valueOf(skany[i].XY.Y) + " " + String.valueOf(skany[i].XY.X) +" " + String.valueOf(skany[i].XY.Z)+ "\n";
                     wypisz += "liczba zarejestrowanych punktów" + String.valueOf(skany[i].AP.length) + "\n";
                 }
             }

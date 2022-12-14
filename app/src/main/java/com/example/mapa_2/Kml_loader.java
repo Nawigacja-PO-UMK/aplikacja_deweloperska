@@ -14,7 +14,7 @@ class Kml_loader extends AsyncTask<Void, Void, Void>  {
         ProgressDialog progressDialog;
         KmlDocument kmlDocument;
         znacznik_Pozycji znacznik;
-
+        int poziom_mapy;
         private Context kontekst;
         private MapView mapView;
         int IDmap;
@@ -42,6 +42,7 @@ class Kml_loader extends AsyncTask<Void, Void, Void>  {
         protected Void doInBackground(Void... voids){
             kmlDocument = new KmlDocument();
             kmlDocument.parseKMLStream(kontekst.getResources().openRawResource(R.raw.mapa), null);
+            poziom_mapy=0;
             FolderOverlay kmlOverlay = (FolderOverlay)kmlDocument.mKmlRoot.buildOverlay(mapView, null, null,kmlDocument);
             mapView.getOverlays().add(kmlOverlay);
             ///dodawanieznacznika

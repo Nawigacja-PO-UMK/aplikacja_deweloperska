@@ -72,7 +72,7 @@ public class odczytywanie_pozycji implements Akcje_na_Wifi{
 
         if (dane !=null) {
             znacznik.przesunięcię_wskaznika(new GeoPoint(dane.XY.X,dane.XY.Y));
-            Toast.makeText(kontekst, "X:"+dane.XY.X +" Y:"+dane.XY.Y, Toast.LENGTH_SHORT).show();
+            Toast.makeText(kontekst, "X:"+dane.XY.X +" Y:"+dane.XY.Y+" Z:"+dane.XY.Z, Toast.LENGTH_SHORT).show();
         }
         else
             Toast.makeText(kontekst, "nie znaleziono pozycji", Toast.LENGTH_SHORT).show();

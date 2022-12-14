@@ -27,6 +27,9 @@ public class Baza {
     private Context kontekst;
     private JSONArray Bazadanych;
     private String url="https://nawigacjapoumk.000webhostapp.com";
+    private SharedPreferences plik;
+    private SharedPreferences.Editor edytor;
+
     public Baza(String plikBazy,Context kontekst)  {
         this.plikBazy=plikBazy;
         this.kontekst=kontekst;
@@ -43,17 +46,15 @@ public class Baza {
     }
     public String odczytaj_plik()
     {
-        SharedPreferences plik = kontekst.getSharedPreferences(plikBazy, Context.MODE_PRIVATE);
+        plik = kontekst.getSharedPreferences(plikBazy, Context.MODE_PRIVATE);
         String dane=plik.getString("baza","");
         return dane;
 
     }
     private void Zapisywanie_do_pliku(String dane)
     {
-        SharedPreferences plik = kontekst.getSharedPreferences(plikBazy, Context.MODE_PRIVATE);
-        SharedPreferences.Editor edytor =plik.edit();
-        edytor.putString("baza",dane);
-        edytor.apply();
+        plik = kontekst.getSharedPreferences(plikBazy, Context.MODE_PRIVATE);
+        plik.edit().putString("baza",dane).commit();
     }
     public void Zapisywanie_do_Bazy(List<ScanResult> rezultat_skanu, wspułżedne XY)
     {
@@ -74,6 +75,7 @@ public class Baza {
             JSONObject xy= new JSONObject();
             xy.put("X",dane.XY.X);
             xy.put("Y",dane.XY.Y);
+            xy.put("Z",dane.XY.Z);
             JSONArray lista_punktów=new JSONArray();
            for (skan sk: dane.AP) {
                 //pojedyńczy zeskanowany router
@@ -108,6 +110,7 @@ public class Baza {
                 wynik[j].XY = new wspułżedne();
                 wynik[j].XY.X =  xy.getDouble("X");
                 wynik[j].XY.Y =  xy.getDouble("Y");
+                wynik[j].XY.Z =  xy.getDouble("Z");
                 // skany
                 JSONArray listapunktów = skan.getJSONArray("skan");
                 wynik[j].AP = new skan[listapunktów.length()];
@@ -149,16 +152,14 @@ public class Baza {
                 return wystłane;
             }
         };
-        RequestQueue gniazdo= Volley.newRequestQueue(kontekst,);
+        RequestQueue gniazdo= Volley.newRequestQueue(kontekst);
         gniazdo.add(WysyłaneDane);
     }
 
     public void kasuj()
     {
-        SharedPreferences plik = kontekst.getSharedPreferences(plikBazy, Context.MODE_PRIVATE);
-        SharedPreferences.Editor edytor = plik.edit();
-        edytor.clear();
-        edytor.apply();
-
+        plik = kontekst.getSharedPreferences(plikBazy, Context.MODE_PRIVATE);
+        plik.edit().remove("baza").commit();
+        Bazadanych=new JSONArray();
     }
 }

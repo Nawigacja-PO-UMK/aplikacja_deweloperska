@@ -37,6 +37,7 @@ public class Mapa {
         GeoPoint punkt=loadKml.znacznik.getPosition();
         XY.X=punkt.getLatitude();
         XY.Y=punkt.getLongitude();
+        XY.Z=loadKml.poziom_mapy;
         return XY;
     }
 
