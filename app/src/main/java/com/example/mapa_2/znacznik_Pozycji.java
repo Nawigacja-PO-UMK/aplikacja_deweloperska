@@ -15,7 +15,8 @@ import org.osmdroid.views.overlay.infowindow.MarkerInfoWindow;
 
 public class znacznik_Pozycji extends Marker {
     MapView mapView;
-    public znacznik_Pozycji(MapView mapView, Context kontekst) {
+
+    public znacznik_Pozycji(MapView mapView, Context kontekst,int level) {
         super(mapView);
         GeoPoint punktstartowy;
         Drawable Icon = kontekst.getResources().getDrawable(R.drawable.ic_launcher);
@@ -26,7 +27,7 @@ public class znacznik_Pozycji extends Marker {
         setIcon(Icon);
         this.mapView=mapView;
         GeoPoint pozycja = getPosition();
-        setTitle("X="+pozycja.getLatitude()+" Y="+pozycja.getLongitude());
+        setTitle("X="+pozycja.getLatitude()+" Y="+pozycja.getLongitude()+" Z="+level);
     }
 
     public void przesunięcię_wskaznika( GeoPoint point)

@@ -66,6 +66,18 @@ public class MainActivity extends AppCompatActivity{
         pozycja = new Pozycjonowanie(context,Baza);
     }
 
+    @SuppressLint("SuspiciousIndentation")
+    public void LewelUpMap(View view)
+    {
+        if(mapa.levelmax()>mapa.level())
+        mapa.wczytaj_nowa_mape(mapa.level()+1);
+    }
+
+    public void LewelDownMap(View view)
+    {
+        if(mapa.Levelmin()<mapa.level())
+            mapa.wczytaj_nowa_mape(mapa.level()-1);
+    }
 
     public void Kasuj_skany(View view)
     {

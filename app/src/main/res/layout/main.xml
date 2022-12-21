@@ -7,32 +7,73 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
+        <RelativeLayout
+            android:id="@+id/parent_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="49dp"
+            tools:layout_editor_absoluteY="-130dp">
 
-        <org.osmdroid.views.MapView
-            android:id="@+id/map"
-            android:layout_width="413dp"
-            android:layout_height="371dp"
-            app:layout_constraintBottom_toTopOf="@+id/skanuj"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.728"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.816">
+                <org.osmdroid.views.MapView
+                    android:id="@+id/map"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0"
+                    tools:ignore="NotSibling"></org.osmdroid.views.MapView>
 
-        </org.osmdroid.views.MapView>
+                <Button
+                    android:id="@+id/up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="34dp"
+                    android:layout_marginEnd="299dp"
+                    android:onClick="LewelUpMap"
+                    android:text="up"
+                    tools:layout_editor_absoluteX="230dp"
+                    tools:layout_editor_absoluteY="100dp" />
 
-        <Switch
-            android:id="@+id/zapisać"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="   Zapisać"
-            app:layout_constraintBottom_toTopOf="@+id/map"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.777" />
+                <Button
+                    android:id="@+id/down"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/up"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="39dp"
+                    android:layout_marginEnd="299dp"
+                    android:onClick="LewelDownMap"
+                    android:text="down"
+                    tools:layout_editor_absoluteX="130dp"
+                    tools:layout_editor_absoluteY="5dp" />
+
+                <Switch
+                    android:id="@+id/zapisać"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="   Zapisać" />
+
+
+        </RelativeLayout>
+
+
+        <Button
+            android:id="@+id/wypisz"
+            android:layout_width="172dp"
+            android:layout_height="46dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginBottom="24dp"
+            android:onClick="odczytwanie_plik"
+            android:text="Pokaż  Skany"
+            app:layout_constraintBottom_toTopOf="@+id/ekran"
+            app:layout_constraintEnd_toStartOf="@+id/skanuj" />
 
         <Button
             android:id="@+id/skanuj"
@@ -81,19 +122,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ekran" />
-
-        <Button
-            android:id="@+id/wypisz"
-            android:layout_width="172dp"
-            android:layout_height="46dp"
-            android:onClick="odczytwanie_plik"
-            android:text="Pokaż  Skany"
-            app:layout_constraintBottom_toTopOf="@+id/ekran"
-            app:layout_constraintEnd_toStartOf="@+id/skanuj"
-            app:layout_constraintHorizontal_bias="0.353"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/map"
-            app:layout_constraintVertical_bias="0.324" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

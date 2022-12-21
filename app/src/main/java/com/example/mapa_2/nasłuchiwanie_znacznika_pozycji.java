@@ -8,10 +8,13 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 
 public class nasłuchiwanie_znacznika_pozycji implements Marker.OnMarkerDragListener {
-    Context kontekst;
-    nasłuchiwanie_znacznika_pozycji(Context kontekst)
+    private Context kontekst;
+    private int level;
+
+    nasłuchiwanie_znacznika_pozycji(Context kontekst,int level)
     {
         this.kontekst=kontekst;
+        this.level=level;
     }
     @Override
     public void onMarkerDrag(Marker marker) {
@@ -24,7 +27,7 @@ public class nasłuchiwanie_znacznika_pozycji implements Marker.OnMarkerDragList
         GeoPoint pozycja = marker.getPosition();
         X=pozycja.getLatitude();
         Y=pozycja.getLongitude();
-        marker.setTitle("X="+X+" Y="+Y);
+        marker.setTitle("X="+X+" Y="+Y+" Z="+level);
     }
 
     @Override
