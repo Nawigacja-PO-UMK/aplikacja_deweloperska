@@ -2,26 +2,16 @@ package com.example.mapa_2;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
-import android.util.Log;
+import android.widget.Toast;
 
-import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.bonuspack.kml.KmlDocument;
-import org.osmdroid.bonuspack.kml.KmlFolder;
-import org.osmdroid.bonuspack.kml.Style;
-import org.osmdroid.bonuspack.kml.StyleSelector;
-import org.osmdroid.bonuspack.location.OverpassAPIProvider;
-import org.osmdroid.bonuspack.location.POI;
-import org.osmdroid.bonuspack.utils.BonusPackHelper;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.FolderOverlay;
-import org.osmdroid.views.overlay.OverlayItem;
 
-import java.net.URLEncoder;
-import java.util.ArrayList;
-
-public class Kml_loader extends AsyncTask<Void, Void, Void>  {
+public class Kml_loader extends AsyncTask<Void, Void, Void> {
     ProgressDialog progressDialog;
     KmlDocument kmlDocument;
 
@@ -49,7 +39,6 @@ public class Kml_loader extends AsyncTask<Void, Void, Void>  {
     @Override
     protected Void doInBackground(Void... voids) {
 
-        ////Tworzenie tag do zapytania i pobranie z adresu url dane JSON piętra
         tworzenieKmlDocument();
         FolderOverlay kmlOverlay = (FolderOverlay) kmlDocument.mKmlRoot.buildOverlay(mapView, null, null,kmlDocument);
         kmlOverlay.setName("Floor"+floor_level);

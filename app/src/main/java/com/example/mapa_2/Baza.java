@@ -2,6 +2,8 @@ package com.example.mapa_2;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
 import android.widget.Toast;
 
@@ -131,6 +133,12 @@ public class Baza {
     }
     void wysyłanie_na_Serwer()
     {
+        ConnectivityManager łączę =(ConnectivityManager) kontekst.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(!(łączę.getActiveNetworkInfo()!=null &&  łączę.getActiveNetworkInfo().isConnected()))
+        {
+            Toast.makeText(kontekst,"włacz internet",Toast.LENGTH_LONG).show();
+            return;
+        }
         String baza=odczytaj_plik();
         StringRequest WysyłaneDane= new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {

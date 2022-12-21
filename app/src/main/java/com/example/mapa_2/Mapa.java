@@ -1,8 +1,10 @@
 package com.example.mapa_2;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.widget.Button;
+import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -51,6 +53,10 @@ public class Mapa {
     }
     private void wczytywanie_mapy(int level) {
 
+        ConnectivityManager łączę =(ConnectivityManager) kontekst.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(!(łączę.getActiveNetworkInfo()!=null &&  łączę.getActiveNetworkInfo().isConnected()))
+            Toast.makeText(kontekst,"włacz internet",Toast.LENGTH_LONG).show();
+            else
         loadKml= (Kml_loader) new Kml_loader(kontekst,mapView,level).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
     public void wczytaj_nowa_mape(int level)
