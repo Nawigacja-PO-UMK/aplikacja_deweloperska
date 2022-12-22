@@ -18,6 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,13 +29,14 @@ public class Baza {
     private String plikBazy;
     private Context kontekst;
     private JSONArray Bazadanych;
-    private String url="https://nawigacjapoumk.000webhostapp.com";
+    private URL url;
     private SharedPreferences plik;
     private SharedPreferences.Editor edytor;
 
-    public Baza(String plikBazy,Context kontekst)  {
+    public Baza(String plikBazy,Context kontekst,URL url)  {
         this.plikBazy=plikBazy;
         this.kontekst=kontekst;
+        this.url=url;
         Bazadanych = new JSONArray();
     }
 
@@ -140,7 +142,7 @@ public class Baza {
             return;
         }
         String baza=odczytaj_plik();
-        StringRequest WysyłaneDane= new StringRequest(Request.Method.POST, url,
+        StringRequest WysyłaneDane= new StringRequest(Request.Method.POST, url.toString(),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

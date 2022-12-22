@@ -39,6 +39,8 @@ import org.osmdroid.views.overlay.FolderOverlay;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.infowindow.InfoWindow;
 
+import java.net.MalformedURLException;
+
 
 public class MainActivity extends AppCompatActivity{
 
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity{
     TextView plik;
     Switch przełocznik;
     Mapa mapa;
+    boolean nagrywanie=false;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
 
@@ -63,7 +66,13 @@ public class MainActivity extends AppCompatActivity{
         mapa= new Mapa(context,findViewById(R.id.map),R.raw.mapa);
         ///pozycjonowanie
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
-        pozycja = new Pozycjonowanie(context,Baza);
+
+        try {
+            pozycja = new Pozycjonowanie(context,Baza);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @SuppressLint("SuspiciousIndentation")
@@ -81,9 +90,13 @@ public class MainActivity extends AppCompatActivity{
 
     public void Kasuj_skany(View view)
     {
-        pozycja.Kasuj_baze_skanów();
-        plik.setText(pozycja.wypisz_zawartość_bazy());
+        if(przełocznik.isChecked()) {
+            pozycja.Kasuj_baze_skanów();
+            plik.setText(pozycja.wypisz_zawartość_bazy());
+        }else {
+            pozycja.Kasuj_baze_testów();
 
+        }
     }
 
 
@@ -93,7 +106,11 @@ public class MainActivity extends AppCompatActivity{
             zapiszywanie_pozycji();
         }
         else
-            odczytywanie_pozycji();
+            if(nagrywanie)
+                pozycja.przestań_nagrywać_test();
+            else
+            pozycja.Nagraj_test();
+
     }
 
     private void odczytywanie_pozycji()
@@ -109,13 +126,19 @@ public class MainActivity extends AppCompatActivity{
 
     public void odczytwanie_plik(View view)
     {
+        if(przełocznik.isChecked())
         plik.setText(pozycja.wypisz_zawartość_bazy());
+        else
+            plik.setText(pozycja.wypisz_zawartość_bazytestów());
     }
 
 
     public void wyslij_do_bazy(View view)
     {
+        if(przełocznik.isChecked())
         pozycja.wyślij_skany_do_bazy();
+        else
+            pozycja.wyślij_testy_do_bazy();
     }
 
 
