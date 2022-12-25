@@ -17,6 +17,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
+import org.json.JSONTokener;
 
 import java.net.URL;
 import java.util.HashMap;
@@ -51,28 +53,36 @@ public class Baza {
     public String odczytaj_plik()
     {
         plik = kontekst.getSharedPreferences(plikBazy, Context.MODE_PRIVATE);
-        String dane=plik.getString("baza","");
+        String dane=plik.getString("baza",null);
         return dane;
 
     }
-    private void Zapisywanie_do_pliku(String dane)
+    void Zapisywanie_do_pliku(String dane)
     {
         plik = kontekst.getSharedPreferences(plikBazy, Context.MODE_PRIVATE);
         plik.edit().putString("baza",dane).commit();
     }
     public void Zapisywanie_do_Bazy(List<ScanResult> rezultat_skanu, wspułżedne XY)
     {
-        formatowanie_danych_do_bazy dane= new formatowanie_danych_do_bazy(rezultat_skanu,XY);
-        String JSON=parsowanie_do_JSON(dane.get());
-        if(JSON!=null) {
-            Zapisywanie_do_pliku(JSON);
-            Toast.makeText(kontekst, "zapisane", Toast.LENGTH_LONG).show();
+        try {
+            String JSON=odczytaj_plik();
+            if( JSON!=null)
+                this.Bazadanych = new JSONArray(JSON);
+            if (rezultat_skanu!=null && XY!=null) {
+                formatowanie_danych_do_bazy dane = new formatowanie_danych_do_bazy(rezultat_skanu, XY);
+                JSONObject skan = parsowanie_do_JSON(dane.get());
+                this.Bazadanych.put(skan);
+                Zapisywanie_do_pliku(this.Bazadanych.toString());
+            } else
+                Toast.makeText(kontekst, "nie można zapisać (błąd skanu)", Toast.LENGTH_LONG).show();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(kontekst, "nie można zapisać (bład danych JSON)", Toast.LENGTH_LONG).show();
         }
-        else
-            Toast.makeText(kontekst, "nie można zapisać", Toast.LENGTH_LONG).show();
     }
 
-   private String parsowanie_do_JSON(typ_danych_bazy_skan dane)
+    JSONObject parsowanie_do_JSON(typ_danych_bazy_skan dane)
     {
         try {
             //klasa wspułzedne
@@ -93,8 +103,7 @@ public class Baza {
             JSONObject skan=new JSONObject();
             skan.put("XY",xy);
             skan.put("skan",lista_punktów);
-            Bazadanych.put(skan);
-             return Bazadanych.toString();
+            return skan;
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -157,9 +166,9 @@ public class Baza {
             @Override
             protected Map<String,String> getParams()
             {
-                Map<String,String> wystłane= new HashMap<String,String>();
-                wystłane.put("dane",baza);
-                return wystłane;
+                Map<String,String> wysyłane= new HashMap<String,String>();
+                wysyłane.put("dane",baza);
+                return wysyłane;
             }
         };
         RequestQueue gniazdo= Volley.newRequestQueue(kontekst);
@@ -172,4 +181,5 @@ public class Baza {
         plik.edit().remove("baza").commit();
         Bazadanych=new JSONArray();
     }
+
 }

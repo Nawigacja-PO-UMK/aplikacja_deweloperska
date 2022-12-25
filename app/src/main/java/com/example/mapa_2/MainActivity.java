@@ -17,6 +17,7 @@ import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity{
     final String Baza="daneBazy.jos";
     TextView plik;
     Switch przełocznik;
+    Button skan;
     Mapa mapa;
     boolean nagrywanie=false;
 
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.main);
         plik= (TextView) findViewById(R.id.ekran);
         przełocznik=(Switch) findViewById(R.id.zapisać);
+        skan=(Button) findViewById(R.id.skanuj);
         context = this;
         mapa= new Mapa(context,findViewById(R.id.map),R.raw.mapa);
         ///pozycjonowanie
@@ -88,6 +91,14 @@ public class MainActivity extends AppCompatActivity{
             mapa.wczytaj_nowa_mape(mapa.level()-1);
     }
 
+    public void zmiana_trybu(View view) {
+        if (przełocznik.isChecked())
+            skan.setText("Zapisz skan");
+        else
+            skan.setText("Nagraj skany");
+
+
+    }
     public void Kasuj_skany(View view)
     {
         if(przełocznik.isChecked()) {
@@ -95,7 +106,8 @@ public class MainActivity extends AppCompatActivity{
             plik.setText(pozycja.wypisz_zawartość_bazy());
         }else {
             pozycja.Kasuj_baze_testów();
-
+            plik.setText(pozycja.wypisz_zawartość_bazytestów());
+            plik.setText(pozycja.wypisz_zawartość_bazytestów());
         }
     }
 
@@ -106,11 +118,15 @@ public class MainActivity extends AppCompatActivity{
             zapiszywanie_pozycji();
         }
         else
-            if(nagrywanie)
+            if(nagrywanie) {
                 pozycja.przestań_nagrywać_test();
-            else
-            pozycja.Nagraj_test();
-
+                nagrywanie=false;
+                skan.setText("Nagraj skany");
+            }else {
+                pozycja.Nagraj_test();
+                nagrywanie=true;
+                skan.setText("Stop Nagrywać");
+            }
     }
 
     private void odczytywanie_pozycji()

@@ -41,12 +41,12 @@ public class Pozycjonowanie {
             xy.X=X;
             xy.Y=Y;
             xy.Z=Z;
-            zapisywanie_wifi_do_Bazy sesja= new zapisywanie_wifi_do_Bazy(baza,xy,false);
+            zapisywanie_wifi_do_Bazy sesja= new zapisywanie_wifi_do_Bazy(baza,kontekst,xy,false);
             WIFI.Akcje_Wifi(sesja);
         }
         public void zapisz_skan_do_Bazy(wspułżedne xy)
         {
-            zapisywanie_wifi_do_Bazy sesja= new zapisywanie_wifi_do_Bazy(baza,xy,false);
+            zapisywanie_wifi_do_Bazy sesja= new zapisywanie_wifi_do_Bazy(baza,kontekst,xy,false);
             WIFI.Akcje_Wifi(sesja);
         }
         public void odczytaj_pozycje(znacznik_Pozycji znacznik)
@@ -91,7 +91,7 @@ public class Pozycjonowanie {
         public void Nagraj_test()
          {
              znacznik_testów.Z++;
-            sesja_testu= new zapisywanie_wifi_do_Bazy(bazatestów,znacznik_testów,true);
+            sesja_testu= new zapisywanie_nagrań_wifi(bazatestów,kontekst,znacznik_testów,true);
             WIFI.Akcje_Wifi(sesja_testu);
         }
         public void przestań_nagrywać_test()
@@ -102,18 +102,27 @@ public class Pozycjonowanie {
 
     public String wypisz_zawartość_bazytestów() {
     double nagranie=0;
-    int lidzba_skanów=0;
+    double czaspoczątkowy=0;
+    int lidzba_skanów=1;
         typ_danych_bazy_skan[] skany = bazatestów.odczytaj_dane();
         String wypisz = new String("");
         if(skany!= null) {;
-            nagranie=skany[1].XY.Z;
+            nagranie=skany[skany.length-1].XY.Z;
+            czaspoczątkowy=skany[skany.length-1].XY.X;
             for (int i = skany.length-1; i >=0 ; i--) {
-                lidzba_skanów++;
-                if(nagranie!=skany[i].XY.Z) {
+                if(nagranie!=skany[i].XY.Z | i==0) {
                     wypisz += "nagranie :" + String.valueOf(nagranie) + "\n";
                     wypisz += "liczba skanów" + String.valueOf(lidzba_skanów) + "\n";
-                    lidzba_skanów=0;
+                    if(i ==0 | i==skany.length-1)
+                    wypisz += "czas od: "+String.valueOf(skany[i].XY.X)+ "sekund do: "+ String.valueOf(czaspoczątkowy)+"sekund\n";
+                    else {
+                        wypisz += "czas od: " + String.valueOf(skany[i + 1].XY.X) + "sekund do: " + String.valueOf(czaspoczątkowy) + "sekund\n";
+                    }
+                        lidzba_skanów=1;
+                    nagranie=skany[i].XY.Z;
+                    czaspoczątkowy=skany[i].XY.X;
                 }
+                lidzba_skanów++;
 
             }
         }

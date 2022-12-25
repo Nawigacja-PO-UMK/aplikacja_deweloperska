@@ -77,7 +77,6 @@ public class odczytywanie_pozycji implements Akcje_na_Wifi{
         else
             Toast.makeText(kontekst, "nie znaleziono pozycji", Toast.LENGTH_SHORT).show();
     }
-
     @Override
     public boolean kiedy_zakończyć_skanowanie(List<ScanResult> results) {
         return true;
