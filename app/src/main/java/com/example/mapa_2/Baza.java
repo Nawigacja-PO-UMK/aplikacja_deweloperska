@@ -26,12 +26,12 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Baza {
+public abstract class Baza {
 
-    private String plikBazy;
-    private Context kontekst;
-    private JSONArray Bazadanych;
-    private URL url;
+    protected final String plikBazy;
+    protected final Context kontekst;
+    protected JSONArray Bazadanych;
+    private final URL url;
     private SharedPreferences plik;
     private SharedPreferences.Editor edytor;
 
@@ -41,16 +41,39 @@ public class Baza {
         this.url=url;
         Bazadanych = new JSONArray();
     }
+    abstract JSONObject parsowanie_do_JSON(List<ScanResult> rezultat_skanu, Object opis);
+    abstract protected Object[] parsowanie_z_JSON(String dane);
 
-    public typ_danych_bazy_skan[] odczytaj_dane()  {
+
+    public Object[] odczytaj_dane()  {
 
         String JSON=odczytaj_plik();
         if( JSON!=null) {
-           return parsowanie_z_JSON(JSON);
+            return parsowanie_z_JSON(JSON);
         }
         return null;
     }
-    public String odczytaj_plik()
+
+
+    public void Zapisywanie_do_Bazy(List<ScanResult> rezultat_skanu,Object opis)
+    {
+        try {
+            String JSON=odczytaj_plik();
+            if( JSON!=null)
+                this.Bazadanych = new JSONArray(JSON);
+            if (rezultat_skanu!=null && opis!=null) {
+                JSONObject skan = parsowanie_do_JSON(rezultat_skanu,opis);
+                this.Bazadanych.put(skan);
+                Zapisywanie_do_pliku(this.Bazadanych.toString());
+            } else
+                Toast.makeText(kontekst, "nie można zapisać (błąd skanu)", Toast.LENGTH_LONG).show();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(kontekst, "nie można zapisać (bład danych JSON)", Toast.LENGTH_LONG).show();
+        }
+    }
+       public String odczytaj_plik()
     {
         plik = kontekst.getSharedPreferences(plikBazy, Context.MODE_PRIVATE);
         String dane=plik.getString("baza",null);
@@ -62,86 +85,7 @@ public class Baza {
         plik = kontekst.getSharedPreferences(plikBazy, Context.MODE_PRIVATE);
         plik.edit().putString("baza",dane).commit();
     }
-    public void Zapisywanie_do_Bazy(List<ScanResult> rezultat_skanu, wspułżedne XY)
-    {
-        try {
-            String JSON=odczytaj_plik();
-            if( JSON!=null)
-                this.Bazadanych = new JSONArray(JSON);
-            if (rezultat_skanu!=null && XY!=null) {
-                formatowanie_danych_do_bazy dane = new formatowanie_danych_do_bazy(rezultat_skanu, XY);
-                JSONObject skan = parsowanie_do_JSON(dane.get());
-                this.Bazadanych.put(skan);
-                Zapisywanie_do_pliku(this.Bazadanych.toString());
-            } else
-                Toast.makeText(kontekst, "nie można zapisać (błąd skanu)", Toast.LENGTH_LONG).show();
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(kontekst, "nie można zapisać (bład danych JSON)", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    JSONObject parsowanie_do_JSON(typ_danych_bazy_skan dane)
-    {
-        try {
-            //klasa wspułzedne
-            JSONObject xy= new JSONObject();
-            xy.put("X",dane.XY.X);
-            xy.put("Y",dane.XY.Y);
-            xy.put("Z",dane.XY.Z);
-            JSONArray lista_punktów=new JSONArray();
-           for (skan sk: dane.AP) {
-                //pojedyńczy zeskanowany router
-                JSONObject punkt = new JSONObject();
-                punkt.put("Name", sk.Nazwa);
-                punkt.put("MAC", sk.MAC);
-                punkt.put("RSSI", sk.RSSI);
-                ///klasa
-                lista_punktów.put(punkt);
-            }
-            JSONObject skan=new JSONObject();
-            skan.put("XY",xy);
-            skan.put("skan",lista_punktów);
-            return skan;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    private typ_danych_bazy_skan[] parsowanie_z_JSON( String dane)
-    {
-
-        try {
-            JSONArray skany=new JSONArray(dane);
-            typ_danych_bazy_skan[]  wynik = new typ_danych_bazy_skan[skany.length()];
-            for (int j=0;j<skany.length();j++) {
-                JSONObject skan = skany.getJSONObject(j);
-                wynik[j]=new typ_danych_bazy_skan();
-                ///klasa wspułżednych
-                JSONObject xy = skan.getJSONObject("XY");
-                wynik[j].XY = new wspułżedne();
-                wynik[j].XY.X =  xy.getDouble("X");
-                wynik[j].XY.Y =  xy.getDouble("Y");
-                wynik[j].XY.Z =  xy.getDouble("Z");
-                // skany
-                JSONArray listapunktów = skan.getJSONArray("skan");
-                wynik[j].AP = new skan[listapunktów.length()];
-                for (int i = 0; i < listapunktów.length(); i++) {
-                    wynik[j].AP[i] = new skan();
-                    JSONObject punkt = listapunktów.getJSONObject(i);
-
-                    wynik[j].AP[i].Nazwa = punkt.getString("Name");
-                    wynik[j].AP[i].MAC = punkt.getString("MAC");
-                    wynik[j].AP[i].RSSI = punkt.getInt("RSSI");
-                }
-            }
-            return wynik;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
     void wysyłanie_na_Serwer()
     {
         ConnectivityManager łączę =(ConnectivityManager) kontekst.getSystemService(Context.CONNECTIVITY_SERVICE);

@@ -12,12 +12,12 @@ import java.util.List;
 
 public class odczytywanie_pozycji implements Akcje_na_Wifi{
 
-    private Baza baza;
+    private Baza_skanów baza;
     private wspułżedne XY;
     private final int skala_błędu_skanowania=4;
     private znacznik_Pozycji znacznik;
     private Context kontekst;
-    odczytywanie_pozycji(Baza baza,Context kontekst,znacznik_Pozycji znacznik)
+    odczytywanie_pozycji(Baza_skanów baza,Context kontekst,znacznik_Pozycji znacznik)
     {
         this.XY=XY;
         this.baza=baza;
@@ -28,7 +28,7 @@ public class odczytywanie_pozycji implements Akcje_na_Wifi{
 
     typ_danych_bazy_skan odczytaj_pozycje(wspułżedne XY)
     {
-        typ_danych_bazy_skan[] skany=baza.odczytaj_dane();
+        typ_danych_bazy_skan[] skany=(typ_danych_bazy_skan[]) baza.odczytaj_dane();
         if(skany!=null) {
             for (typ_danych_bazy_skan skan : skany) {
                 if (skan.XY.X == XY.X && skan.XY.Y == XY.Y)
@@ -40,7 +40,7 @@ public class odczytywanie_pozycji implements Akcje_na_Wifi{
 
     typ_danych_bazy_skan odczytaj_pozycje(List<ScanResult> rezultat_saknu)
     {
-        typ_danych_bazy_skan[] skany=baza.odczytaj_dane();
+        typ_danych_bazy_skan[] skany=(typ_danych_bazy_skan[])baza.odczytaj_dane();
         String wynik=new String();
         int lidzba_trafien=0;
         if(skany==null)

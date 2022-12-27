@@ -1,25 +1,40 @@
 package com.example.mapa_2;
 
 import android.net.wifi.ScanResult;
+import android.renderscript.Type;
 
 import java.util.List;
 
 
 public class formatowanie_danych_do_bazy {
 
-    typ_danych_bazy_skan dane;
-
-    formatowanie_danych_do_bazy(List<ScanResult> rezultat_skanu, wspułżedne XY)
+Object Dane;
+    formatowanie_danych_do_bazy(List<ScanResult> rezultat_skanu, Object opis,int typ)
     {
-        dane=new typ_danych_bazy_skan();
-        dane.XY=XY;
-        this.dane.AP = wypisz_skanowanie(rezultat_skanu);
+        switch (typ) {
+            case 0:
+                 typ_danych_bazy_skan dane=new typ_danych_bazy_skan();
+                 dane.XY=(wspułżedne) opis;
+                 dane.AP=wypisz_skanowanie(rezultat_skanu);
+                 Dane=dane;
+                break;
+            case 1:
+                typ_danych_bazy_test d =new typ_danych_bazy_test();
+                d.opis=(opis_nagrania) opis;
+                d.AP=wypisz_skanowanie(rezultat_skanu);
+                Dane=d;
+                break;
+            default:
+                return;
+        }
+
     }
 
-    public typ_danych_bazy_skan get()
+    public Object get()
     {
-        return this.dane;
+        return this.Dane;
     }
+
     private static skan[] wypisz_skanowanie(List<ScanResult> dane_punktów) {
         skan[] skany = new skan[dane_punktów.size()];
         int j=0;

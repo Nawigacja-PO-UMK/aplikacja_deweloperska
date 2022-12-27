@@ -11,30 +11,23 @@ public class Pozycjonowanie {
         private Context kontekst;
         private Wifi_Manager WIFI;
         private String plikBazy;
-        private Baza baza;
-        private Baza bazatestów;
-        private wspułżedne znacznik_testów;
+        private Baza_skanów baza;
+        private baza_testów bazatestów;
+        private opis_nagrania znacznik_testów;
         private zapisywanie_wifi_do_Bazy sesja_testu;
 
         Pozycjonowanie(Context kontekst,String plikBazy) throws MalformedURLException {
             URL urlbazy=new URL("https://nawigacjapoumk.000webhostapp.com.");
             URL urlbazatestów=new URL("https://nawigacjapoumk.000webhostapp.com/bazatest.php");
-            baza= new Baza(plikBazy,kontekst,urlbazy);
-            bazatestów=new Baza("bazatesty",kontekst,urlbazatestów);
+            baza= new Baza_skanów(plikBazy,kontekst,urlbazy);
+            bazatestów=new baza_testów("bazatesty",kontekst,urlbazatestów);
             WIFI = new Wifi_Manager(kontekst);
             this.plikBazy=plikBazy;
             this.kontekst=kontekst;
-            znacznik_testów=new wspułżedne();
-            znacznik_testów.X=0;
-            znacznik_testów.Y=0;
-            znacznik_testów.Z=0;
-        }
+            znacznik_testów= new opis_nagrania();
+            znacznik_testów.nagranie=0;
 
-        public void Wświetl_czujniki(TextView wifi) {
-            wypisz akcjaskanu= new wypisz(wifi);
-            WIFI.Akcje_Wifi(akcjaskanu);
         }
-
         public void zapisz_skan_do_Bazy(float X,float Y,double Z)
         {
             wspułżedne xy=new wspułżedne();
@@ -62,7 +55,7 @@ public class Pozycjonowanie {
 
         public String wypisz_zawartość_bazy() {
 
-            typ_danych_bazy_skan[] skany = baza.odczytaj_dane();
+            typ_danych_bazy_skan[] skany =(typ_danych_bazy_skan[]) baza.odczytaj_dane();
             String wypisz = new String("");
             if(skany!= null) {
                 for (int i = skany.length-1; i >=0 ; i--) {
@@ -90,8 +83,8 @@ public class Pozycjonowanie {
 
         public void Nagraj_test()
          {
-             znacznik_testów.Z++;
-            sesja_testu= new zapisywanie_nagrań_wifi(bazatestów,kontekst,znacznik_testów,true);
+             znacznik_testów.nagranie++;
+            sesja_testu= new zapisywanie_wifi_do_Bazy(bazatestów,kontekst,znacznik_testów,true);
             WIFI.Akcje_Wifi(sesja_testu);
         }
         public void przestań_nagrywać_test()
@@ -104,23 +97,23 @@ public class Pozycjonowanie {
     double nagranie=0;
     double czaspoczątkowy=0;
     int lidzba_skanów=1;
-        typ_danych_bazy_skan[] skany = bazatestów.odczytaj_dane();
+        typ_danych_bazy_test[] skany = (typ_danych_bazy_test[]) bazatestów.odczytaj_dane();
         String wypisz = new String("");
         if(skany!= null) {;
-            nagranie=skany[skany.length-1].XY.Z;
-            czaspoczątkowy=skany[skany.length-1].XY.X;
+            nagranie=skany[skany.length-1].opis.nagranie;
+            czaspoczątkowy=skany[skany.length-1].opis.czas;
             for (int i = skany.length-1; i >=0 ; i--) {
-                if(nagranie!=skany[i].XY.Z | i==0) {
+                if(nagranie!=skany[i].opis.nagranie | i==0) {
                     wypisz += "nagranie :" + String.valueOf(nagranie) + "\n";
                     wypisz += "liczba skanów" + String.valueOf(lidzba_skanów) + "\n";
                     if(i ==0 | i==skany.length-1)
-                    wypisz += "czas od: "+String.valueOf(skany[i].XY.X)+ "sekund do: "+ String.valueOf(czaspoczątkowy)+"sekund\n";
+                    wypisz += "czas od: "+String.valueOf(skany[i].opis.czas)+ "sekund do: "+ String.valueOf(czaspoczątkowy)+"sekund\n";
                     else {
-                        wypisz += "czas od: " + String.valueOf(skany[i + 1].XY.X) + "sekund do: " + String.valueOf(czaspoczątkowy) + "sekund\n";
+                        wypisz += "czas od: " + String.valueOf(skany[i + 1].opis.czas) + "sekund do: " + String.valueOf(czaspoczątkowy) + "sekund\n";
                     }
                         lidzba_skanów=1;
-                    nagranie=skany[i].XY.Z;
-                    czaspoczątkowy=skany[i].XY.X;
+                    nagranie=skany[i].opis.nagranie;
+                    czaspoczątkowy=skany[i].opis.czas;
                 }
                 lidzba_skanów++;
 

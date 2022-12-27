@@ -1,5 +1,6 @@
 package com.example.mapa_2;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
@@ -51,6 +52,7 @@ public class Mapa {
     {
         return levelmin;
     }
+    @SuppressLint("SuspiciousIndentation")
     private void wczytywanie_mapy(int level) {
 
         ConnectivityManager łączę =(ConnectivityManager) kontekst.getSystemService(Context.CONNECTIVITY_SERVICE);

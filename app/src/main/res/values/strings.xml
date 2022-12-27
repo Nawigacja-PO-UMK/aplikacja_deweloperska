@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Mapa_2</string>
+    <string name="poka_skany">Pokaż Skany</string>
+    <string name="zapisa">Zapisać</string>
+    <string name="nagraj_skany">Nagraj skany</string>
+    <string name="skany">skany...</string>
+    <string name="wysy_aj_skany">wysyłaj skany</string>
+    <string name="kasuj_skany">kasuj skany</string>
+    <string name="down">down</string>
+    <string name="up">up</string>
 </resources>

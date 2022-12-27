@@ -110,8 +110,6 @@ public class MainActivity extends AppCompatActivity{
             plik.setText(pozycja.wypisz_zawartość_bazytestów());
         }
     }
-
-
     public void Operacje_na_pozycji(View view)
     {
         if(przełocznik.isChecked()) {
@@ -125,21 +123,17 @@ public class MainActivity extends AppCompatActivity{
             }else {
                 pozycja.Nagraj_test();
                 nagrywanie=true;
-                skan.setText("Stop Nagrywać");
+                skan.setText("Stop ");
             }
     }
-
     private void odczytywanie_pozycji()
     {
 
         pozycja.odczytaj_pozycje(mapa.loadKml.znacznik);
     }
-
     private void zapiszywanie_pozycji() {
         pozycja.zapisz_skan_do_Bazy(mapa.odczytaj_wspułrzędne());
     }
-
-
     public void odczytwanie_plik(View view)
     {
         if(przełocznik.isChecked())
@@ -147,8 +141,6 @@ public class MainActivity extends AppCompatActivity{
         else
             plik.setText(pozycja.wypisz_zawartość_bazytestów());
     }
-
-
     public void wyslij_do_bazy(View view)
     {
         if(przełocznik.isChecked())
@@ -156,7 +148,4 @@ public class MainActivity extends AppCompatActivity{
         else
             pozycja.wyślij_testy_do_bazy();
     }
-
-
-
 }

@@ -9,21 +9,21 @@
 
         <RelativeLayout
             android:id="@+id/parent_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="49dp"
-            tools:layout_editor_absoluteY="-130dp">
+            android:layout_width="410dp"
+            android:layout_height="400dp"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="1dp"
+            tools:ignore="MissingConstraints">
 
                 <org.osmdroid.views.MapView
                     android:id="@+id/map"
-                    android:layout_width="match_parent"
+                    android:layout_width="410dp"
                     android:layout_height="400dp"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="1.0"
-                    tools:ignore="NotSibling"></org.osmdroid.views.MapView>
+                    tools:ignore="NotSibling"/>
 
                 <Button
                     android:id="@+id/up"
@@ -34,9 +34,10 @@
                     android:layout_marginTop="34dp"
                     android:layout_marginEnd="299dp"
                     android:onClick="LewelUpMap"
-                    android:text="up"
+                    android:text="@string/up"
                     tools:layout_editor_absoluteX="230dp"
-                    tools:layout_editor_absoluteY="100dp" />
+                    tools:layout_editor_absoluteY="100dp"
+                    tools:ignore="RelativeOverlap" />
 
                 <Button
                     android:id="@+id/down"
@@ -47,42 +48,41 @@
                     android:layout_marginTop="39dp"
                     android:layout_marginEnd="299dp"
                     android:onClick="LewelDownMap"
-                    android:text="down"
+                    android:text="@string/down"
                     tools:layout_editor_absoluteX="130dp"
                     tools:layout_editor_absoluteY="5dp" />
 
                 <Switch
                     android:id="@+id/zapisać"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
                     android:onClick="zmiana_trybu"
-                    android:text="   Zapisać" />
-
-
+                    android:text="@string/zapisa"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
         </RelativeLayout>
 
         <Button
             android:id="@+id/wypisz"
-            android:layout_width="172dp"
-            android:layout_height="46dp"
-            android:layout_marginEnd="36dp"
-            android:layout_marginBottom="24dp"
+            android:layout_width="170dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="20dp"
             android:onClick="odczytwanie_plik"
-            android:text="Pokaż  Skany"
+            android:text="@string/poka_skany"
             app:layout_constraintBottom_toTopOf="@+id/ekran"
-            app:layout_constraintEnd_toStartOf="@+id/skanuj" />
+            app:layout_constraintEnd_toStartOf="@+id/skanuj"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/skanuj"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="170dp"
+            android:layout_height="48dp"
             android:layout_marginEnd="28dp"
-            android:layout_marginBottom="256dp"
+            android:layout_marginBottom="236dp"
             android:onClick="Operacje_na_pozycji"
-            android:text="Nagraj skany "
+            android:text="@string/nagraj_skany"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -90,7 +90,7 @@
             android:id="@+id/ekran"
             android:layout_width="385dp"
             android:layout_height="117dp"
-            android:text="skany..."
+            android:text="@string/skany"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -100,28 +100,27 @@
 
         <Button
             android:id="@+id/wysyłaj"
-            android:layout_width="165dp"
-            android:layout_height="45dp"
+            android:layout_width="170dp"
+            android:layout_height="48dp"
             android:layout_marginTop="35dp"
             android:onClick="wyslij_do_bazy"
-            android:text="wysyłaj skany"
+            android:text="@string/wysy_aj_skany"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.671"
+            app:layout_constraintHorizontal_bias="0.348"
             app:layout_constraintStart_toEndOf="@+id/kasuj"
             app:layout_constraintTop_toBottomOf="@+id/ekran"
-            app:layout_constraintVertical_bias="0.029" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/kasuj"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_width="170dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="28dp"
             android:onClick="Kasuj_skany"
-            android:text="kasuj skany"
+            android:text="@string/kasuj_skany"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ekran" />
-
-
+            app:layout_constraintTop_toBottomOf="@+id/ekran"
+            app:layout_constraintVertical_bias="0.7" />
 </androidx.constraintlayout.widget.ConstraintLayout>
