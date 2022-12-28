@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 
 public class Pozycjonowanie {
 
@@ -83,7 +84,7 @@ public class Pozycjonowanie {
 
         public void Nagraj_test()
          {
-             znacznik_testów.nagranie++;
+             znacznik_testów.nagranie=(new Date()).getTime();
             sesja_testu= new zapisywanie_wifi_do_Bazy(bazatestów,kontekst,znacznik_testów,true);
             WIFI.Akcje_Wifi(sesja_testu);
         }
@@ -94,7 +95,7 @@ public class Pozycjonowanie {
 
 
     public String wypisz_zawartość_bazytestów() {
-    double nagranie=0;
+    long nagranie=0;
     double czaspoczątkowy=0;
     int lidzba_skanów=1;
         typ_danych_bazy_test[] skany = (typ_danych_bazy_test[]) bazatestów.odczytaj_dane();

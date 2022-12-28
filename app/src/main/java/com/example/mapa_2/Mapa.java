@@ -20,12 +20,11 @@ public class Mapa {
     private int level;
     private int levelmax;
     private int levelmin;
-    int id_map;
+
      Kml_loader loadKml;
 
-    Mapa(Context kontekst, MapView mapView, int raw_map) {
+    Mapa(Context kontekst, MapView mapView) {
         this.kontekst = kontekst;
-        this.id_map = raw_map;
         this.mapView = mapView;
         mapView.setTileSource(TileSourceFactory.MAPNIK);
         GeoPoint point2 = new GeoPoint(53.01699, 18.60282);

@@ -58,7 +58,7 @@ public class baza_testów  extends Baza{
                 JSONObject opis = skan.getJSONObject("opis_nagrania");
                 wynik[j].opis = new opis_nagrania();
                 wynik[j].opis.czas =  opis.getDouble("czas");
-                wynik[j].opis.nagranie = opis.getInt("nagranie");
+                wynik[j].opis.nagranie = opis.optLong("nagranie");
                 // skany
                 JSONArray listapunktów = skan.getJSONArray("skan");
                 wynik[j].AP = new skan[listapunktów.length()];

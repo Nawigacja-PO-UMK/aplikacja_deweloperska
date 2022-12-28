@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity{
         przełocznik=(Switch) findViewById(R.id.zapisać);
         skan=(Button) findViewById(R.id.skanuj);
         context = this;
-        mapa= new Mapa(context,findViewById(R.id.map),R.raw.mapa);
+        mapa= new Mapa(context,findViewById(R.id.map));
         ///pozycjonowanie
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
 
