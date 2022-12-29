@@ -2,20 +2,11 @@ package com.example.mapa_2;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
 
-import android.graphics.Point;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
@@ -24,21 +15,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import org.osmdroid.api.IGeoPoint;
-import org.osmdroid.api.IMapController;
-import org.osmdroid.bonuspack.clustering.RadiusMarkerClusterer;
-import org.osmdroid.bonuspack.clustering.StaticCluster;
-import org.osmdroid.bonuspack.kml.KmlDocument;
-
 import org.osmdroid.config.Configuration;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
-import org.osmdroid.util.BoundingBox;
-import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.CustomZoomButtonsController;
-import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.FolderOverlay;
-import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.infowindow.InfoWindow;
 
 import java.net.MalformedURLException;
 
@@ -129,10 +106,10 @@ public class MainActivity extends AppCompatActivity{
     private void odczytywanie_pozycji()
     {
 
-        pozycja.odczytaj_pozycje(mapa.loadKml.znacznik);
+        pozycja.odczytaj_pozycje(mapa.floors.znacznik);
     }
     private void zapiszywanie_pozycji() {
-        pozycja.zapisz_skan_do_Bazy(mapa.odczytaj_wspułrzędne());
+        pozycja.zapisz_skan_do_Bazy(mapa.odczytaj_współrzędne());
     }
     public void odczytwanie_plik(View view)
     {

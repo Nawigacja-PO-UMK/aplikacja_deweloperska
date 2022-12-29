@@ -1,7 +1,6 @@
 package com.example.mapa_2;
 
 import android.net.wifi.ScanResult;
-import android.renderscript.Type;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ Object Dane;
         switch (typ) {
             case 0:
                  typ_danych_bazy_skan dane=new typ_danych_bazy_skan();
-                 dane.XY=(wspułżedne) opis;
+                 dane.XY=(współrzedne) opis;
                  dane.AP=wypisz_skanowanie(rezultat_skanu);
                  Dane=dane;
                 break;

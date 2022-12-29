@@ -13,11 +13,11 @@ import java.util.List;
 public class odczytywanie_pozycji implements Akcje_na_Wifi{
 
     private Baza_skanów baza;
-    private wspułżedne XY;
+    private współrzedne XY;
     private final int skala_błędu_skanowania=4;
-    private znacznik_Pozycji znacznik;
+    private Znacznik_Pozycji znacznik;
     private Context kontekst;
-    odczytywanie_pozycji(Baza_skanów baza,Context kontekst,znacznik_Pozycji znacznik)
+    odczytywanie_pozycji(Baza_skanów baza, Context kontekst, Znacznik_Pozycji znacznik)
     {
         this.XY=XY;
         this.baza=baza;
@@ -26,7 +26,7 @@ public class odczytywanie_pozycji implements Akcje_na_Wifi{
 
     }
 
-    typ_danych_bazy_skan odczytaj_pozycje(wspułżedne XY)
+    typ_danych_bazy_skan odczytaj_pozycje(współrzedne XY)
     {
         typ_danych_bazy_skan[] skany=(typ_danych_bazy_skan[]) baza.odczytaj_dane();
         if(skany!=null) {

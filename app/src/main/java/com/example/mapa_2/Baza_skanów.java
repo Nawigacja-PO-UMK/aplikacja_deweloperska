@@ -19,7 +19,7 @@ public class Baza_skanów extends Baza{
 @Override
     JSONObject parsowanie_do_JSON(List<ScanResult> rezultat_skanu,Object opis)
     {
-        typ_danych_bazy_skan dane = (typ_danych_bazy_skan) new formatowanie_danych_do_bazy(rezultat_skanu,(wspułżedne) opis,0).get();
+        typ_danych_bazy_skan dane = (typ_danych_bazy_skan) new formatowanie_danych_do_bazy(rezultat_skanu,(współrzedne) opis,0).get();
         try {
             //klasa wspułzedne
             JSONObject xy= new JSONObject();
@@ -57,7 +57,7 @@ public class Baza_skanów extends Baza{
                 wynik[j]=new typ_danych_bazy_skan();
                 ///klasa wspułżednych
                 JSONObject xy = skan.getJSONObject("XY");
-                wynik[j].XY = new wspułżedne();
+                wynik[j].XY = new współrzedne();
                 wynik[j].XY.X =  xy.getDouble("X");
                 wynik[j].XY.Y =  xy.getDouble("Y");
                 wynik[j].XY.Z =  xy.getDouble("Z");

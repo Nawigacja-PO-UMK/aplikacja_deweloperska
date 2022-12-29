@@ -1,7 +1,6 @@
 package com.example.mapa_2;
 
 import android.content.Context;
-import android.widget.TextView;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,33 +16,33 @@ public class Pozycjonowanie {
         private opis_nagrania znacznik_testów;
         private zapisywanie_wifi_do_Bazy sesja_testu;
 
-        Pozycjonowanie(Context kontekst,String plikBazy) throws MalformedURLException {
+        Pozycjonowanie(Context context,String plikBazy) throws MalformedURLException {
             URL urlbazy=new URL("https://nawigacjapoumk.000webhostapp.com.");
             URL urlbazatestów=new URL("https://nawigacjapoumk.000webhostapp.com/bazatest.php");
-            baza= new Baza_skanów(plikBazy,kontekst,urlbazy);
-            bazatestów=new baza_testów("bazatesty",kontekst,urlbazatestów);
-            WIFI = new Wifi_Manager(kontekst);
+            baza= new Baza_skanów(plikBazy,context,urlbazy);
+            bazatestów=new baza_testów("bazatesty",context,urlbazatestów);
+            WIFI = new Wifi_Manager(context);
             this.plikBazy=plikBazy;
-            this.kontekst=kontekst;
+            this.kontekst=context;
             znacznik_testów= new opis_nagrania();
             znacznik_testów.nagranie=0;
 
         }
         public void zapisz_skan_do_Bazy(float X,float Y,double Z)
         {
-            wspułżedne xy=new wspułżedne();
+            współrzedne xy=new współrzedne();
             xy.X=X;
             xy.Y=Y;
             xy.Z=Z;
             zapisywanie_wifi_do_Bazy sesja= new zapisywanie_wifi_do_Bazy(baza,kontekst,xy,false);
             WIFI.Akcje_Wifi(sesja);
         }
-        public void zapisz_skan_do_Bazy(wspułżedne xy)
+        public void zapisz_skan_do_Bazy(współrzedne xy)
         {
             zapisywanie_wifi_do_Bazy sesja= new zapisywanie_wifi_do_Bazy(baza,kontekst,xy,false);
             WIFI.Akcje_Wifi(sesja);
         }
-        public void odczytaj_pozycje(znacznik_Pozycji znacznik)
+        public void odczytaj_pozycje(Znacznik_Pozycji znacznik)
         {
             odczytywanie_pozycji sesja=new odczytywanie_pozycji(baza,kontekst,znacznik);
             WIFI.Akcje_Wifi(sesja);

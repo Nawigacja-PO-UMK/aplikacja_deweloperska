@@ -1,8 +1,6 @@
 package com.example.mapa_2;
 
-import java.time.LocalDateTime;
-
-public class wspułżedne {
+public class współrzedne {
     double X;
     double Y;
     double Z;
