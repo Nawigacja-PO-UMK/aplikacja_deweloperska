@@ -17,8 +17,8 @@ public class Pozycjonowanie {
         private zapisywanie_wifi_do_Bazy sesja_testu;
 
         Pozycjonowanie(Context context,String plikBazy) throws MalformedURLException {
-            URL urlbazy=new URL("https://nawigacjapoumk.000webhostapp.com.");
-            URL urlbazatestów=new URL("https://nawigacjapoumk.000webhostapp.com/bazatest.php");
+            URL urlbazy=new URL("https://20.68.229.222/");
+            URL urlbazatestów=new URL("https://20.68.229.222/baza_test.php");
             baza= new Baza_skanów(plikBazy,context,urlbazy);
             bazatestów=new baza_testów("bazatesty",context,urlbazatestów);
             WIFI = new Wifi_Manager(context);
