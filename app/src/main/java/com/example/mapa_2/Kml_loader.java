@@ -1,6 +1,7 @@
 package com.example.mapa_2;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.AsyncTask;
 
 import org.osmdroid.bonuspack.kml.KmlDocument;
@@ -14,18 +15,26 @@ public class Kml_loader extends AsyncTask<Void, Void, Void>  {
 
     private KmlDocument kml_Document;
     private FolderOverlay kml_Overlay;
+    private Context context;
+    private Stylistyka stylistyka;
     private final int floor_level;
 
-    Kml_loader( MapView mapView,int floor_level )
+    Kml_loader(MapView mapView,int floor_level, Context context)
     {
         this.mapView=mapView;
         this.floor_level=floor_level;
+        this.context=context;
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
         createKml();
+        stylistyka = new Stylistyka(context,kml_Document,mapView);
+        stylistyka.zastosuj_stylistyke();
+
         kml_Overlay = (FolderOverlay) kml_Document.mKmlRoot.buildOverlay(mapView, null, null, kml_Document);
+
+
         return null;
     }
 
@@ -43,4 +52,7 @@ public class Kml_loader extends AsyncTask<Void, Void, Void>  {
     FolderOverlay get_Kml_Overlay() { return kml_Overlay;}
 
     int get_FloorLevel() { return floor_level; }
+
+    public Stylistyka get_stylistyka() {return stylistyka;}
+
 }

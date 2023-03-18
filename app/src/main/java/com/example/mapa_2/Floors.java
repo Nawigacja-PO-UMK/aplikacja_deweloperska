@@ -30,7 +30,7 @@ public class Floors {
         kml_loader_hashTable = new Hashtable<Integer,Kml_loader>();
 
         for (int level:levels) {
-            Kml_loader kml_loader = (Kml_loader) new Kml_loader(mapView,level).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            Kml_loader kml_loader = (Kml_loader) new Kml_loader(mapView,level,context).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             try {
                 kml_loader.get(1800, TimeUnit.SECONDS);
             } catch (ExecutionException | InterruptedException | TimeoutException e) {
@@ -47,10 +47,17 @@ public class Floors {
         assert kml_loader != null;
         KmlDocument kml_Document = kml_loader.get_Kml_Document();
         FolderOverlay kml_Overlay = kml_loader.get_Kml_Overlay();
+       // Etykieta etykieta = kml_loader.get_Etykieta();
+        //Etykieta etykieta2 = kml_loader.get_Etykieta2();
+        Stylistyka stylistyka = kml_loader.get_stylistyka();
 
+        stylistyka.dodaj_warstwy_kolorow();
         dodawanie_znacznika_lokalizacji(kml_Overlay);
         mapView.getOverlays().add(kml_Overlay);
         mapView.getOverlays().add(znacznik);
+        //mapView.getOverlays().add(etykieta);
+        //mapView.getOverlays().add(etykieta)
+        kml_loader.get_stylistyka().dodaj_warstwy_etykiet();
         prepare_Area_Limit(kml_Document);
         mapView.invalidate();
     }

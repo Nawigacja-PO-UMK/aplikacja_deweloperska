@@ -21,10 +21,10 @@ public class Mapa {
     private int level;
     private int levelmax;
     private int levelmin;
-    final int[] levels = {-1,0,1,2};
+    final int[] levels = {-1, 0, 1, 2};
     Floors floors;
 
-     Kml_loader loadKml;
+    Kml_loader loadKml;
 
     Mapa(Context context, MapView mapView) {
         this.context = context;
@@ -37,11 +37,11 @@ public class Mapa {
 
         mapView.setMinZoomLevel(19.7);
         mapView.setMultiTouchControls(true);
-        levelmax=2;
-        levelmin=-1;
+        levelmax = 2;
+        levelmin = -1;
         level = 0;
 
-        floors = new Floors(context,mapView,levels);
+        floors = new Floors(context, mapView, levels);
         wczytywanie_mapy(level);
     }
 
@@ -49,38 +49,37 @@ public class Mapa {
         return level;
     }
 
-    public int levelmax()
-    {
+    public int levelmax() {
         return levelmax;
     }
 
-    public int Levelmin()
-    {
+    public int Levelmin() {
         return levelmin;
     }
+
     @SuppressLint("SuspiciousIndentation")
     private void wczytywanie_mapy(int level) {
 
-        ConnectivityManager łączę =(ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(!(łączę.getActiveNetworkInfo()!=null &&  łączę.getActiveNetworkInfo().isConnected()))
-            Toast.makeText(context,"włacz internet",Toast.LENGTH_LONG).show();
+        ConnectivityManager łączę = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (!(łączę.getActiveNetworkInfo() != null && łączę.getActiveNetworkInfo().isConnected()))
+            Toast.makeText(context, "włacz internet", Toast.LENGTH_LONG).show();
         else floors.add_Floor_Overlay_with_marker(level);
     }
-    public void wczytaj_nowa_mape(int level)
-    {
-        this.level=level;
+
+    public void wczytaj_nowa_mape(int level) {
+        this.level = level;
         mapView.getOverlays().clear();
         mapView.invalidate();
         wczytywanie_mapy(level);
     }
 
-    public współrzedne odczytaj_współrzędne()
-    {
-        współrzedne XY=new współrzedne();
-        GeoPoint punkt=floors.znacznik.getPosition();
-        XY.X=punkt.getLatitude();
-        XY.Y=punkt.getLongitude();
-        XY.Z=level;
+    public współrzedne odczytaj_współrzędne() {
+        współrzedne XY = new współrzedne();
+        GeoPoint punkt = floors.znacznik.getPosition();
+        XY.X = punkt.getLatitude();
+        XY.Y = punkt.getLongitude();
+        XY.Z = level;
         return XY;
     }
+
 }
