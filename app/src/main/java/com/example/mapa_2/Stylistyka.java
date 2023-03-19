@@ -92,6 +92,11 @@ public class Stylistyka {
                     drawable= context.getResources().getDrawable(R.drawable.room);
                     break;
                 }
+                case "storage":{
+                    color=Color.rgb(152,166,120);
+                    drawable= context.getResources().getDrawable(R.drawable.box);
+                    break;
+                }
                 case "office":{
                     color=Color.rgb(168,81,189);
                     drawable= context.getResources().getDrawable(R.drawable.office);
