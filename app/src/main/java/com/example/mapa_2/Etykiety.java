@@ -1,6 +1,14 @@
 package com.example.mapa_2;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Picture;
 import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 import org.osmdroid.api.IMapView;
@@ -9,10 +17,11 @@ import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.Polygon;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Etykiety extends ItemizedOverlay<OverlayItem> {
 
-    private final ArrayList<OverlayItem> mItemList = new ArrayList<OverlayItem>();
+    private final List<OverlayItem> mItemList = new ArrayList<OverlayItem>();
 
     public Etykiety(Drawable pDefaultMarker) {
         super(pDefaultMarker);
@@ -20,8 +29,9 @@ public class Etykiety extends ItemizedOverlay<OverlayItem> {
 
     public void addOverlay(OverlayItem aOverlayItem)
     {
-        Polygon polygon = new Polygon();
+        aOverlayItem.setMarkerHotspot(OverlayItem.HotspotPlace.CENTER);
         mItemList.add(aOverlayItem);
+
         populate();
     }
 

@@ -57,7 +57,7 @@ public class Floors {
         mapView.getOverlays().add(znacznik);
         //mapView.getOverlays().add(etykieta);
         //mapView.getOverlays().add(etykieta)
-        kml_loader.get_stylistyka().dodaj_warstwy_etykiet();
+        stylistyka.dodaj_warstwy_etykiet();
         prepare_Area_Limit(kml_Document);
         mapView.invalidate();
     }

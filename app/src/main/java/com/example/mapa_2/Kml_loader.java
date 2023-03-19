@@ -2,12 +2,28 @@ package com.example.mapa_2;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Parcel;
 
 import org.osmdroid.bonuspack.kml.KmlDocument;
+import org.osmdroid.bonuspack.kml.KmlFeature;
+import org.osmdroid.bonuspack.kml.Style;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.FolderOverlay;
+import org.osmdroid.views.overlay.simplefastpoint.SimpleFastPointOverlayOptions;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 
 public class Kml_loader extends AsyncTask<Void, Void, Void>  {
     @SuppressLint("StaticFieldLeak")
@@ -33,7 +49,6 @@ public class Kml_loader extends AsyncTask<Void, Void, Void>  {
         stylistyka.zastosuj_stylistyke();
 
         kml_Overlay = (FolderOverlay) kml_Document.mKmlRoot.buildOverlay(mapView, null, null, kml_Document);
-
 
         return null;
     }
