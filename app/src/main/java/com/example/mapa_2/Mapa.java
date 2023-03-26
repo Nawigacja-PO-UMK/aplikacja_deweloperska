@@ -36,6 +36,7 @@ public class Mapa {
         mapController.setZoom(19.7);
 
         mapView.setMinZoomLevel(19.7);
+        mapView.setMaxZoomLevel(23.0);
         mapView.setMultiTouchControls(true);
         levelmax = 2;
         levelmin = -1;

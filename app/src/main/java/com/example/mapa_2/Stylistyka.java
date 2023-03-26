@@ -7,9 +7,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 
-import com.j256.ormlite.stmt.NullArgHolder;
-import com.j256.ormlite.stmt.query.IsNotNull;
-
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.bonuspack.kml.KmlDocument;
 import org.osmdroid.bonuspack.kml.KmlFeature;
@@ -18,6 +15,7 @@ import org.osmdroid.bonuspack.kml.KmlPlacemark;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.Polygon;
 
@@ -25,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Objects;
 
 public class Stylistyka {
 
@@ -43,7 +40,7 @@ public class Stylistyka {
     @SuppressLint("UseCompatLoadingForDrawables")
     public Stylistyka(Context context, KmlDocument kmlDocument, MapView mapView)
     {
-        this.context=context;
+        //this.context=context;
         this.kmlDocument=kmlDocument;
         this.mapView=mapView;
         this.main_layout = new Pomieszczenia(mapView,WHITE);
@@ -89,7 +86,7 @@ public class Stylistyka {
                 }
                 case "room":{
                     color=Color.rgb(152,200,200);
-                    drawable= context.getResources().getDrawable(R.drawable.room);
+                    drawable= context.getResources().getDrawable(R.drawable.door);
                     break;
                 }
                 case "storage":{
@@ -147,9 +144,10 @@ public class Stylistyka {
             polygon.setPoints(geometry.mCoordinates);
 
             IGeoPoint punkt = new GeoPoint(feature.getBoundingBox().getCenterLatitude(), feature.getBoundingBox().getCenterLongitude());
-            OverlayItem obiekt = new OverlayItem(feature.mName, feature.mName, punkt);
 
             String nazwa = feature.getExtendedData("room");
+            String name = feature.getExtendedData("name");
+
 
             if(nazwa == null) {
                 nazwa = feature.getExtendedData("indoor");
@@ -167,12 +165,26 @@ public class Stylistyka {
                     }
                 }
             }
+
+            if (nazwa.equals("corridor"))
+            {
+                pomieszczenie_hashtable.get(nazwa).Dodaj_pomieszczenie(feature);
+                i++;
+                continue;
+            }
+
             i++;
 
+            if (name == null) name = nazwa;
 
             pomieszczenie_hashtable.get(nazwa).Dodaj_pomieszczenie(feature);
-            etykieta_hashtable.get(nazwa).addOverlay(obiekt);
 
+            if(!nazwa.equals("room") && !nazwa.equals("storage") && !nazwa.equals("elevator"))
+            {
+                etykieta_hashtable.get(nazwa).addMarker(context,mapView,punkt);
+                etykieta_hashtable.get(nazwa).addMarker(context,mapView,punkt,name, 95);
+            }
+            else etykieta_hashtable.get(nazwa).addMarker(context,mapView,punkt,name,0);
         }
 
         for (Integer d: to_delete) {

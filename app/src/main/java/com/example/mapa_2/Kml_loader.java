@@ -13,6 +13,7 @@ import android.os.Parcel;
 
 import org.osmdroid.bonuspack.kml.KmlDocument;
 import org.osmdroid.bonuspack.kml.KmlFeature;
+import org.osmdroid.bonuspack.kml.LineStyle;
 import org.osmdroid.bonuspack.kml.Style;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.views.MapView;
@@ -50,6 +51,7 @@ public class Kml_loader extends AsyncTask<Void, Void, Void>  {
 
         kml_Overlay = (FolderOverlay) kml_Document.mKmlRoot.buildOverlay(mapView, null, null, kml_Document);
 
+
         return null;
     }
 
@@ -57,7 +59,7 @@ public class Kml_loader extends AsyncTask<Void, Void, Void>  {
         kml_Document = new KmlDocument();
         Map_Overpass map_overpass = new Map_Overpass();
         String tag = "level=" + floor_level;
-        BoundingBox boxA = new BoundingBox(53.01784, 18.60515, 53.01673, 18.60197);
+        BoundingBox boxA = new BoundingBox(53.01784, 18.60415, 53.01693, 18.60197);
         String url = map_overpass.urlForTagSearchKml(tag, boxA,10000,1000);
         map_overpass.addInKmlFolder(kml_Document.mKmlRoot,url);
     }

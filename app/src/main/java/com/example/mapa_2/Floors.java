@@ -8,6 +8,7 @@ import org.osmdroid.bonuspack.kml.KmlDocument;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.FolderOverlay;
+import org.osmdroid.views.overlay.Overlay;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -47,17 +48,18 @@ public class Floors {
         assert kml_loader != null;
         KmlDocument kml_Document = kml_loader.get_Kml_Document();
         FolderOverlay kml_Overlay = kml_loader.get_Kml_Overlay();
-       // Etykieta etykieta = kml_loader.get_Etykieta();
-        //Etykieta etykieta2 = kml_loader.get_Etykieta2();
         Stylistyka stylistyka = kml_loader.get_stylistyka();
+        List<Overlay> overlays = mapView.getOverlays();
 
-        stylistyka.dodaj_warstwy_kolorow();
+
+
+
         dodawanie_znacznika_lokalizacji(kml_Overlay);
-        mapView.getOverlays().add(kml_Overlay);
-        mapView.getOverlays().add(znacznik);
-        //mapView.getOverlays().add(etykieta);
-        //mapView.getOverlays().add(etykieta)
+        overlays.add(kml_Overlay);
+        stylistyka.dodaj_warstwy_kolorow();
         stylistyka.dodaj_warstwy_etykiet();
+        overlays.add(znacznik);
+
         prepare_Area_Limit(kml_Document);
         mapView.invalidate();
     }

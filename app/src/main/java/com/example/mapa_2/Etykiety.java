@@ -1,61 +1,51 @@
 package com.example.mapa_2;
 
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Picture;
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
+import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.api.IMapView;
-import org.osmdroid.views.overlay.ItemizedOverlay;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.Polygon;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class Etykiety extends ItemizedOverlay<OverlayItem> {
+public class Etykiety extends Overlay {
 
-    private final List<OverlayItem> mItemList = new ArrayList<OverlayItem>();
+    private ArrayList<Overlay> markers;
+    private Drawable icon;
 
-    public Etykiety(Drawable pDefaultMarker) {
-        super(pDefaultMarker);
-    }
-
-    public void addOverlay(OverlayItem aOverlayItem)
+    public Etykiety(Drawable icon)
     {
-        aOverlayItem.setMarkerHotspot(OverlayItem.HotspotPlace.CENTER);
-        mItemList.add(aOverlayItem);
-
-        populate();
+        super();
+        this.icon = icon;
+        markers = new ArrayList<Overlay>();
     }
 
-    public void removeOverlay(OverlayItem aOverlayItem)
+    public void addMarker(Context context, MapView mapView, IGeoPoint punkt)
     {
-        mItemList.remove(aOverlayItem);
-        populate();
+        ScaledMarker scaledMarker = new ScaledMarker(context, mapView,punkt, icon);
+        markers.add(scaledMarker);
+    }
+
+    public void addMarker(Context context, MapView mapView, IGeoPoint punkt, String name, int iconHeight)
+    {
+        MarkerText markerText = new MarkerText(context,name,punkt,iconHeight);
+        markers.add(markerText);
     }
 
     @Override
-    protected OverlayItem createItem(int i) {
-        return mItemList.get(i);
-    }
+    public void draw(Canvas canvas, MapView mapView, boolean shadow) {
+        super.draw(canvas,mapView,shadow);
 
-    @Override
-    public int size() {
-        if (mItemList != null)
-            return mItemList.size();
-        else
-            return 0;
-    }
-
-    @Override
-    public boolean onSnapToItem(int x, int y, Point snapPoint, IMapView mapView) {
-        return false;
+        for (Overlay marker : markers) {
+            marker.draw(canvas, mapView, shadow);
+        }
     }
 }

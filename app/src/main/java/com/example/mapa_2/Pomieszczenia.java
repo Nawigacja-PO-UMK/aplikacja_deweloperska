@@ -37,6 +37,8 @@ public class Pomieszczenia {
 
         polygon.setPoints(geometry.mCoordinates);
         polygon.setFillColor(color);
+        polygon.setStrokeWidth(7);
+        polygon.setStrokeColor(Color.GRAY);
         polygon_list.add(polygon);
     }
 
