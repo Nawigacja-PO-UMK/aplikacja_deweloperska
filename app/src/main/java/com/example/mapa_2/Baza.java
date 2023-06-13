@@ -40,6 +40,22 @@ public abstract class Baza {
         this.kontekst=kontekst;
         this.url=url;
         Bazadanych = new JSONArray();
+        try {
+            X509TrustManager trustManager = new X509TrustManager() {
+                public void checkClientTrusted(X509Certificate[] xcs, String string) throws CertificateException {}
+                public void checkServerTrusted(X509Certificate[] xcs, String string) throws CertificateException {}
+                public X509Certificate[] getAcceptedIssuers() {
+                    return null;
+                }
+            };
+            SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
+            sslContext.init(null, new TrustManager[] { trustManager }, null);
+            HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
+        }
     }
     abstract JSONObject parsowanie_do_JSON(List<ScanResult> rezultat_skanu, Object opis);
     abstract protected Object[] parsowanie_z_JSON(String dane);
